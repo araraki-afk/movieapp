@@ -26,9 +26,12 @@ const ItemCard = ({ item, onPress, onFavoritePress, isFavorite }) => {
         </View>
       </View>
       <TouchableOpacity
-        style={[styles.favoriteButton, isFavorite && styles.favoriteActive]}
-        onPress={onFavoritePress}
-      >
+  style={[styles.favoriteButton, isFavorite && styles.favoriteActive]}
+  onPress={() => {
+    console.log('Favorite button pressed');
+    onFavoritePress();
+  }}
+>
         <Text style={styles.favoriteIcon}>
           {isFavorite ? '★' : '☆'}
         </Text>

@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const FAVORITES_KEY = '@favorites';
+
 export const getFavorites = async () => {
     try {
         const favoritesJson = await AsyncStorage.getItem(FAVORITES_KEY);
@@ -10,7 +12,6 @@ export const getFavorites = async () => {
     }
 };
 
-// сохранить список фильмов
 export const saveFavorites = async (favorites) => {
     try {
         const favoritesJson = JSON.stringify(favorites);
@@ -19,17 +20,15 @@ export const saveFavorites = async (favorites) => {
         console.error('Error saving favorites: ', error);
     }
 };
-// добавить фильм в изрбранное
 
-export const addToFavorites = async (movies) => {
+export const addToFavorites = async (movie) => {
     try {
         const favorites = await getFavorites();
-        if (!favorites.some(favorite => favorite.id === movies.id)) {
+        if (!favorites.some(favorite => favorite.id === movie.id)) {
             const updatedFavorites = [...favorites, movie];
             await saveFavorites(updatedFavorites);
             return updatedFavorites;
         }
-
         return favorites;
     } catch (error) {
         console.error('Error adding to favorites: ', error);
@@ -37,11 +36,9 @@ export const addToFavorites = async (movies) => {
     }
 };
 
-// udalit' film iz izbrannogo
-
 export const removeFromFavorites = async (movieId) => {
     try {
-        const favorite = await getFavorites();
+        const favorites = await getFavorites();
         const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
         await saveFavorites(updatedFavorites);
         return updatedFavorites;
@@ -51,13 +48,11 @@ export const removeFromFavorites = async (movieId) => {
     }
 };
 
-//check if a movie in a favorites list
-
 export const isFavorite = async (movieId) => {
     try {
         const favorites = await getFavorites();
-        return favoritest.some(movie => movie.id === movieId);
-    } catch(error) {
+        return favorites.some(movie => movie.id === movieId);
+    } catch (error) {
         console.error('Error checking if favorite: ', error);
         return false;
     }

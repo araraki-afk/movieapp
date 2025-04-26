@@ -23,16 +23,16 @@ export const FavoritesProvider = ({ children }) => {
         loadFavorites();
     },
 []);
-    const addFavorite = async (movieId) => {
-        try {
-            const updatedFavorites = await addToFavorites(movie);
-            setFavorites(updatedFavorites);
-            return true;
-        } catch (error) {
-            console.error('Erorr adding to favorites: ', error);
-            return false;
-        }
-    };
+const addFavorite = async (movie) => {
+    try {
+        const updatedFavorites = await addToFavorites(movie);
+        setFavorites(updatedFavorites);
+        return true;
+    } catch (error) {
+        console.error('Error adding to favorites: ', error);
+        return false;
+    }
+};
 
     const removeFavorite = async (movieId) => {
         try {

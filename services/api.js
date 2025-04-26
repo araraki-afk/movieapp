@@ -18,14 +18,13 @@ export const getPopularMovies = async (page=1) => {
     }
 };
 
-export const getMoviesDetails = async(movieId) => {
+export const getMovieDetails = async (movieId) => {
     try {
-        const response = await fetch (
-            `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=ru-RU&`
+        const response = await fetch(
+            `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=ru-RU`
         );
-
         if (!response.ok) {
-            throw new Error('Networt response was not ok');
+            throw new Error('Network response was not ok');
         }
         const data = await response.json();
         return data;
